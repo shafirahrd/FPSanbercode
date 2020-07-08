@@ -33,6 +33,10 @@ class CreateQuestionsTable extends Migration
      */
     public function down()
     {
+        Schema::table('questions', function (Blueprint $table) {
+            //
+            $table->dropForeign('users_uploader_id_foreign');
+        });
         Schema::dropIfExists('questions');
     }
 }

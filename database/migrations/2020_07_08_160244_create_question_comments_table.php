@@ -17,7 +17,7 @@ class CreateQuestionCommentsTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('question_id');
-            $table->foreign('question_id')->references('id')->on('question');
+            $table->foreign('question_id')->references('id')->on('questions');
             
             $table->unsignedBigInteger('uploader_id');
             $table->foreign('uploader_id')->references('id')->on('users');

@@ -1,0 +1,17 @@
+USER
+*menambahkan/mengurangi reputation pada user dengan id $id
+    User::add_reputation(int $id,int $value)    
+
+QUESTION
+*itung jumalh vote dengan id tertentu
+    Question::count_votes(int $id)  
+*vote question ber id $questionid oleh user ber id $userid dengan value $value
+    Question::vote($userid, $questionid, $value)  
+*menset jawaban dengan id $answerid menjadi best answer dari quesion dengan id $questionid  
+    Question::set_best_answer($questionid, $answerid)
+
+ANSWER
+*itung jumalh vote dengan id tertentu
+    Answer::count_votes(int $id)  
+*vote answer ber id $answerid oleh user ber id $userid dengan value $value
+    Answer::vote($userid, $answerid, $value)

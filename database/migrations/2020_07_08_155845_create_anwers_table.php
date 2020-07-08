@@ -13,7 +13,7 @@ class CreateAnwersTable extends Migration
      */
     public function up()
     {
-        Schema::create('anwers', function (Blueprint $table) {
+        Schema::create('answers', function (Blueprint $table) {
             $table->id();
             $table->longText('content');
 

@@ -1,0 +1,41 @@
+USER
+*kumpulan question yang diajukan user
+    ->questions
+*kumpulan answer yang dijawab user
+    ->answers
+*kumpulan komen question yang diajukan user
+    ->questionComments
+*kumpulan komen answer yang diajukan user
+    ->answerComments
+*kumpulan vote question yang diajukan user
+    ->questionVotes
+*kumpulan vote answer yang diajukan user
+    ->answerVotes
+
+QUESTION
+*user yang upload
+    ->uploader
+*jawabannya
+    ->answers
+*jawaban terbaik
+    ->best_answer
+*komen di question
+    ->comments
+*votes di question
+    ->votes
+
+ANSWER
+*user yang jawab
+    ->uploader
+*question yang dijawab
+    ->question
+*komen di answer
+    ->comments
+*votes di answer
+    ->votes
+
+QUESTIONCOMMENT/ANSWERCOMMENT/QUESTIONVOTE/ANSWERVOTE
+*user yang komen/vote
+    ->uploader
+*question/answer yang dikomen/divote
+    ->question/answer

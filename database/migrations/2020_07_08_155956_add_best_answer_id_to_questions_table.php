@@ -29,7 +29,7 @@ class AddBestAnswerIdToQuestionsTable extends Migration
     {
         Schema::table('questions', function (Blueprint $table) {
             //
-            $table->dropForeign('best_answer_id');
+            $table->dropForeign('questions_best_answer_id_foreign');
             $table->dropColumn('best_answer_id');
         });
     }
