@@ -1,10 +1,20 @@
 @extends('adminlte.master')
 
+@push('styles')
+h2 {
+    text-align: center;
+    margin: 30px;
+}
+textarea.h300{
+    height: 300px;
+}
+@endpush
+
 @section('content')
 
     <div class="container-fluid d-flex justify-content-center flex-column" >
-        <h2 style="text-align: center; margin: 30px">Upload your question here</h2>
-        <form action="/question/" method="POST" class="col-6  align-self-center">
+        <h2>Upload your question here</h2>
+        <form action="/question/update" method="POST" class="col-6  align-self-center">
             @csrf
             <div class="form-group row ">
                 <div class="col-12">
@@ -13,7 +23,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-12">
-                    <textarea style="height: 300px" type="text" class="form-control" name="content" id="content" placeholder="Enter your question content here" required></textarea>
+                    <textarea type="text" class="form-control h300" name="content" id="content" placeholder="Enter your question content here" required></textarea>
                 </div>
             </div>
             <div class="form-group row">
@@ -27,8 +37,5 @@
 @endsection
 
 @push('scripts')
-    <!-- <script>
-        $('#title').val("{{$question->title}}");
-        $('#content').val("{{$question->content}}");
-    </script> -->
+
 @endpush

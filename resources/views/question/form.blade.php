@@ -4,7 +4,7 @@
 
     <div class="container-fluid d-flex justify-content-center flex-column" >
         <h2 style="text-align: center; margin: 30px">Upload your question here</h2>
-        <form action="/question" method="POST" class="col-6  align-self-center">
+        <form action="/question/id" method="POST" class="col-6  align-self-center">
             @csrf
             <div class="form-group row ">
                 <div class="col-12">

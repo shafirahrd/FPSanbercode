@@ -4,6 +4,12 @@
 span {
   font-size: small;
 }
+span.float-right{
+  float: right;
+}
+span.margin-right{
+  margin-right: 25px;
+}
 a {
   margin-left:auto;
 }
@@ -24,8 +30,10 @@ a {
               Content
           </div>
           <!-- /.card-body -->
-          <div class="card-footer d-flex justify-content-end">
-            <span>Created at</span>
+          <div class="card-footer">
+            <span class="margin-right"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+            <span class="margin-right"><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+            <span class="float-right">Created at</span>
           </div>
           <!-- /.card-footer-->
       </div>

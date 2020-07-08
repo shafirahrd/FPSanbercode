@@ -1,6 +1,6 @@
 @extends('adminlte.master')
 
-@push('scripts')
+@push('styles')
 pre {
   font-family: "Source Sans Pro","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif !important;
 }
@@ -40,10 +40,10 @@ textarea {
       </span>  
     </div>
     <div class="container d-flex justify-content-around">
-      <a class="col-3" href="/question/edit">
+      <a class="col-3" href="/question/id/edit">
         <button class="btn btn-primary col-12 margin-zero">Edit</button>
       </a>
-      <form class="col-3" action="/question/delete" method="post">
+      <form class="col-3" action="/question/id/delete" method="post">
         @method('delete')
         @csrf
         <input class="btn btn-primary col-12" type="submit" value="Delete" />
@@ -73,7 +73,7 @@ textarea {
           </h3>
         </div>
         <div class="card-body pad">
-          <form action="/answer/" method="POST">
+          <form action="/answer/id" method="POST">
             @csrf
             <div class="mb-3">
               <textarea name="content" class="textarea" placeholder="Type your answer here"></textarea>

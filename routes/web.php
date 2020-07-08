@@ -12,22 +12,21 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function(){
-	return view('question.index');
-});
 
-// Route::get('/', 'QuestionController@index');
+
+Route::get('/', 'Controller@index');
+Route::get('/login', 'Controller@login');
+Route::get('/register', 'Controller@register');
 // Route::get('/question', 'QuestionController@index');
 // Route::get('/question/{id}', 'AnswerController@index');
 
-// Route::get('/question/create', 'QuestionController@create');
-// Route::post('/question', 'QuestionController@insert');
+Route::get('/question/create', 'Controller@createquestion');
+Route::post('/question/id', 'Controller@index');
+Route::get('/question/id/edit', 'Controller@editquestion');
+Route::put('/question/update', 'Controller@indexanswer');
 
-// Route::get('/question/{id}/edit', 'QuestionController@edit');
-// Route::put('/question/{id}', 'QuestionController@update');
+Route::delete('/question/id/delete', 'Controller@index');
 
-// Route::delete('/question/{id}/delete', 'QuestionController@delete');
-
-// Route::get('/answer/{id}', 'AnswerController@index');
+Route::get('/answer', 'Controller@indexanswer');
 // Route::get('/answer/{id}/create', 'AnswerController@create');
-// Route::post('/answer/{id}', 'AnswerController@insert');
+Route::post('/answer/id', 'Controller@indexanswer');
