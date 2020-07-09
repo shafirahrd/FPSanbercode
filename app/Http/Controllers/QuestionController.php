@@ -12,9 +12,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+    public function index()
+    {
         $questions = Question::all();
-        return view('question.index', ['questions'=>$questions]);
+        return view('question.index', ['questions' => $questions]);
     }
 
     /**
@@ -22,7 +23,8 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(){
+    public function create()
+    {
         return view('question.form');
     }
 
@@ -32,7 +34,8 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         Question::insert($request);
         return redirect()->action('QuestionController@index');
     }
@@ -43,7 +46,10 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id){
+    public function show($id)
+    {
+        $question = Question::find($id);
+        return view('question.show', compact('question'));
     }
 
     /**
@@ -52,17 +58,22 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id){
+    public function edit($id)
+    {
+        return view('question.edit');
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  array  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
+        Question::update($request, $id);
+        return redirect()->action('QuestionController@index');
     }
 
     /**
@@ -71,6 +82,11 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id){
+    public function destroy($id)
+    {
+        $question = Question::destroy($id);
+        if ($question) {
+            return redirect('question');
+        }
     }
 }

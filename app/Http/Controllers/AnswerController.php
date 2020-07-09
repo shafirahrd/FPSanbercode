@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use Illuminate\Http\Request;
 
 class AnswerController extends Controller
@@ -11,7 +12,10 @@ class AnswerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+    public function index()
+    {
+        $answer = Answer::all();
+        return view('answer.index', ['answer' => $answer]);
     }
 
     /**
@@ -19,7 +23,9 @@ class AnswerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(){
+    public function create()
+    {
+        return view('answer.form');
     }
 
     /**
@@ -28,7 +34,10 @@ class AnswerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        Answer::insert($request);
+        return redirect()->action('QuestionController@index');
     }
 
     /**
@@ -37,7 +46,10 @@ class AnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id){
+    public function show($id)
+    {
+        $answer = Answer::find($id);
+        return view('answer.show', compact('answer'));
     }
 
     /**
@@ -46,17 +58,22 @@ class AnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id){
+    public function edit($id)
+    {
+        return view('question.edit');
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  array  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
+        Answer::update($request, $id);
+        return redirect()->action('QuestionController@index');
     }
 
     /**
@@ -65,6 +82,11 @@ class AnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id){
+    public function destroy($id)
+    {
+        $answer = Answer::destroy($id);
+        if ($answer) {
+            return redirect('answer');
+        }
     }
 }

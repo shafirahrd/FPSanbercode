@@ -16,13 +16,24 @@ class Question extends Model
      * 
      * @return void
      */
-    public static function insert(Request $request){
-       Question::create([
-            'title'=>$request->title,
-            'content'=>$request->content,
-            'tags'=>$request->tags,
-            'uploader_id'=>$request->Session::get('user_id')
+    public static function insert(Request $request)
+    {
+        Question::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'tags' => $request->tags,
+            'uploader_id' => $request->Session::get('user_id')
         ]);
+    }
+    public static function update(Request $request, $id)
+    {
+
+        Question::where('id', $id)
+            ->update([
+                'title' => $request['title'],
+                'content' => $request['content'],
+                'tags' => $request['tags']
+            ]);
     }
 
     /**
@@ -30,19 +41,20 @@ class Question extends Model
      * 
      * @return void
      */
-    public static function vote($userid, $questionid, $value){
-        $record = QuestionVote::where('voter_id',$userid)
-            ->where('question_id',$questionid)
+    public static function vote($userid, $questionid, $value)
+    {
+        $record = QuestionVote::where('voter_id', $userid)
+            ->where('question_id', $questionid)
             ->get();
-        if($record){
+        if ($record) {
             $record[0]->update([
-                'value'=>$value
+                'value' => $value
             ]);
-        }else{
+        } else {
             QuestionVote::create([
-                'voter_id'=>$userid,
-                'question_id'=>$questionid,
-                'value'=>$value
+                'voter_id' => $userid,
+                'question_id' => $questionid,
+                'value' => $value
             ]);
         }
     }
@@ -53,7 +65,8 @@ class Question extends Model
      * 
      * @return int
      */
-    public static function count_votes($id){
+    public static function count_votes($id)
+    {
         $question = Question::where('id', $id)->get()[0];
         $votes = 0;
         foreach ($question->votes as $vote) {
@@ -69,26 +82,32 @@ class Question extends Model
      * 
      * @return void
      */
-    public static function set_best_answer($questionid, $answerid){
+    public static function set_best_answer($questionid, $answerid)
+    {
         Question::where('id', $questionid)->update([
-            'best_answer_id'=>($answerid)
+            'best_answer_id' => ($answerid)
         ]);
     }
 
     /** RELATIONSIHPS */
-    public function uploader(){
+    public function uploader()
+    {
         return $this->belongsTo('App\User', 'uploader_id');
     }
-    public function answers(){
+    public function answers()
+    {
         return $this->hasMany('App\Answer');
     }
-    public function best_answer(){
+    public function best_answer()
+    {
         return $this->belongsTo('App\Answer', 'best_answer_id');
     }
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany('App\QuestionComment');
     }
-    public function votes(){
+    public function votes()
+    {
         return $this->hasMany('App\QuestionVote');
     }
 }
