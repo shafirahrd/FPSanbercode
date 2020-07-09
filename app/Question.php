@@ -16,11 +16,20 @@ class Question extends Model
      * @return void
      */
     public static function vote($userid, $questionid, $value){
-        QuestionVote::updateOrCreate([
-            'voter_id'=>$userid,
-            'question_id'=>$questionid,
-            'value'=>$value
-        ]);
+        $record = QuestionVote::where('voter_id',$userid)
+            ->where('question_id',$questionid)
+            ->get();
+        if($record){
+            $record[0]->update([
+                'value'=>$value
+            ]);
+        }else{
+            QuestionVote::create([
+                'voter_id'=>$userid,
+                'question_id'=>$questionid,
+                'value'=>$value
+            ]);
+        }
     }
 
     /**
@@ -31,7 +40,10 @@ class Question extends Model
      */
     public static function count_votes($id){
         $question = Question::where('id', $id)->get()[0];
-        $votes = count($question->votes);
+        $votes = 0;
+        foreach ($question->votes as $vote) {
+            $votes += $vote->value;
+        }
         return $votes;
     }
 

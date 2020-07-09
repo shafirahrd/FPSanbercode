@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'reputation',
     ];
 
     /**
@@ -49,10 +49,12 @@ class User extends Authenticatable
      * @return void
      */
     public static function add_reputation($id, $value){
-        $user = User::where('id', $id);
+        $user = User::where('id', $id)->get();
+        if($user) $user = $user[0];
         $current_reputation = $user->reputation;
+        $final_value = $current_reputation + $value;
         $user->update([
-            'reputation'=>($current_reputation + $value)
+            'reputation'=> $final_value
         ]);
     }
 

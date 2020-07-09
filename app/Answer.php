@@ -18,7 +18,10 @@ class Answer extends Model
      */
     public static function count_votes($id){
         $answer = Answer::where('id', $id)->get()[0];
-        $votes = count($answer->votes);
+        $votes = 0;
+        foreach ($answer->votes as $vote) {
+            $votes += $vote->value;
+        }
         return $votes;
     }
 
@@ -28,11 +31,20 @@ class Answer extends Model
      * @return void
      */
     public static function vote($userid, $answerid, $value){
-        AnswerVote::updateOrCreate([
-            'voter_id'=>$userid,
-            'answer_id'=>$answerid,
-            'value'=>$value
-        ]);
+        $record = AnswerVote::where('voter_id',$userid)
+            ->where('answer_id',$answerid)
+            ->get();
+        if($record){
+            $record[0]->update([
+                'value'=>$value
+            ]);
+        }else{
+            AnswerVote::create([
+                'voter_id'=>$userid,
+                'answer_id'=>$answerid,
+                'value'=>$value
+            ]);
+        }
     }
 
     /** RELATIONSIHPS */
