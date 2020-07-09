@@ -25,29 +25,32 @@
     <ul class="navbar-nav">
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <div class="info" data-toggle="dropdown" style="cursor: pointer">
+            @if (Session::has('name'))
+              <a class="d-block">{{Session::get('name')}}</a>
+            @else
+              <a class="d-block">no user</a>  
+            @endif
+          </div>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right position-absolute">
+          @if (Session::has('name'))
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+          <a href="/logout" class="dropdown-item">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Log out</p>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          @else
+            <div class="dropdown-divider"></div>
+            <a href="/login" class="dropdown-item">
+              <i class="far fa-circle nav-icon"></i><span style="margin-left: 10px">Log in</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="/registr" class="dropdown-item">
+              <i class="far fa-circle nav-icon"></i><span style="margin-left: 10px">Register</span>  
+            </a>
+            <div class="dropdown-divider"></div>
+          @endif
         </div>
       </li>
     </ul>
