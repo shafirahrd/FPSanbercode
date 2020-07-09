@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
@@ -36,6 +37,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function AuthRouteAPI(Request $request){
+        return $request->user();
+     }
 
     /**
      * Function to add user reputation. first parameter
@@ -54,21 +58,21 @@ class User extends Authenticatable
 
     /** RELATIONSIHPS */
     public function questions(){
-        return $this->hasMany('App\Question');
+        return $this->hasMany('App\Question', 'uploader_id');
     }
     public function answers(){
-        return $this->hasMany('App\Answer');
+        return $this->hasMany('App\Answer', 'uploader_id');
     }
     public function questionComments(){
-        return $this->hasMany('App\QuestionComment');
+        return $this->hasMany('App\QuestionComment', 'uploader_id');
     }
     public function answerComments(){
-        return $this->hasMany('App\AnswerComment');
+        return $this->hasMany('App\AnswerComment', 'uploader_id');
     }
     public function questionVotes(){
-        return $this->hasMany('App\QuestionVote');
+        return $this->hasMany('App\QuestionVote', 'voter_id');
     }
     public function answerVotes(){
-        return $this->hasMany('App\AnswerVote');
+        return $this->hasMany('App\AnswerVote', 'voter_id');
     }
 }

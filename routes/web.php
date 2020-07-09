@@ -30,3 +30,5 @@ Route::delete('/question/id/delete', 'Controller@index');
 Route::get('/answer', 'Controller@indexanswer');
 // Route::get('/answer/{id}/create', 'AnswerController@create');
 Route::post('/answer/id', 'Controller@indexanswer');
+
+Route::get('/test', 'TestController@index');
