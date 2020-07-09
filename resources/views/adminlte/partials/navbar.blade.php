@@ -50,7 +50,7 @@
               <i class="far fa-circle nav-icon"></i><span style="margin-left: 10px">Log in</span>
             </a>
             <div class="dropdown-divider"></div>
-            <a href="/registr" class="dropdown-item">
+            <a href="/register" class="dropdown-item">
               <i class="far fa-circle nav-icon"></i><span style="margin-left: 10px">Register</span>  
             </a>
             <div class="dropdown-divider"></div>
@@ -59,3 +59,5 @@
       </li>
     </ul>
   </nav>
+
+  

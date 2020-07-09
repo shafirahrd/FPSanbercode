@@ -23,6 +23,10 @@ class UserController extends Controller
         return view('auth.login');
     }
 
+    public function register(){
+        return view('auth.register');
+    }
+
     public function loginPost(Request $request){
 
         $email = $request->email;
