@@ -1,11 +1,19 @@
 @extends('adminlte.master')
 
+@push('styles')
+
+@endpush
+
 @section('content')
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-left: 15%; padding: 25px;">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading" style="float: center;">Login</div>
+                <div class="panel-heading">
+                    <center>
+                        <h1 style="font-family: 'Montserrat Subrayada', sans-serif; color: #FFAE42">Login</h1>    
+                    </center>
+                </div>
                 @if(\Session::has('alert'))
                     <div class="alert alert-danger">
                         <div>{{Session::get('alert')}}</div>
@@ -16,7 +24,8 @@
                         <div>{{Session::get('alert-success')}}</div>
                     </div>
                 @endif
-                <div class="panel-body">
+                <div class="panel-body" style="padding: 25px;">
+                    <center>
                     <form class="form-horizontal" method="POST" action="{{ url('/loginPost') }}">
                         {{ csrf_field() }}
 
@@ -65,12 +74,9 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <a href="{{url('register')}}" class="btn btn-md btn-warning">Register</a>
-                            </div>
-                        </div>
                     </form>
+                    <!-- <a href="/user/create">Register</a> -->
+                    </center>
                 </div>
             </div>
         </div>

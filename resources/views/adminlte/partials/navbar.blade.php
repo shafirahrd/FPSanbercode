@@ -25,30 +25,39 @@
     <ul class="navbar-nav">
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          <div class="info d-flex" data-toggle="dropdown" style="cursor: pointer">
+            <img src="{{ asset('adminlte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" style="width: 30px; margin: 10px" alt="User Image">
+            @if (Session::has('name'))
+              <a class="d-block align-self-center">{{Session::get('name')}}</a>
+            @else
+              <a class="d-block align-self-center">Anonymous</a>  
+            @endif
+          </div>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right position-absolute">
+          @if (Session::has('name'))
+            <div class="dropdown-divider"></div>
+            <a href="/user/{{Session::get('id')}}" class="dropdown-item">
+              <i class="fa fa-user nav-icon" style="color: #FFAE42"></i><span style="margin-left: 10px">Profile</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="/logout" class="dropdown-item">
+              <i class="fa fa-sign-out-alt nav-icon" style="color: #FFAE42"></i><span style="margin-left: 10px">Log out</span>
+            </a>
+            <div class="dropdown-divider"></div>
+          @else
+            <div class="dropdown-divider"></div>
+            <a href="/login" class="dropdown-item">
+              <i class="fa fa-sign-in-alt nav-icon" style="color: #FFAE42"></i><span style="margin-left: 10px">Log in</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="/register" class="dropdown-item">
+              <i class="fa fa-registered nav-icon" style="color: #FFAE42"></i><span style="margin-left: 10px">Register</span>  
+            </a>
+            <div class="dropdown-divider"></div>
+          @endif
         </div>
       </li>
     </ul>
   </nav>
+
+  

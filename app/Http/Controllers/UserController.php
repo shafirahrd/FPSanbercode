@@ -23,6 +23,10 @@ class UserController extends Controller
         return view('auth.login');
     }
 
+    public function register(){
+        return view('auth.register');
+    }
+
     public function loginPost(Request $request){
 
         $email = $request->email;
@@ -52,11 +56,22 @@ class UserController extends Controller
         return redirect('login')->with('alert','Log out Succes');
     }
 
-    public function register(Request $request){
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(){
         return view('auth.register');
     }
 
-    public function registerPost(Request $request){
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request){
         $this->validate($request, [
             'name' => 'required|min:4',
             'email' => 'required|min:4|email|unique:users',
@@ -69,35 +84,13 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id){
+        return view('auth.profile');
     }
 
     /**
@@ -106,9 +99,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id){
     }
 
     /**
@@ -118,19 +109,6 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function update(Request $request, $id){
     }
 }

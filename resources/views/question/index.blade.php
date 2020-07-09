@@ -13,6 +13,18 @@ span.margin-right{
 a {
   margin-left:auto;
 }
+h4 {
+  color: #008b8b;
+}
+.btn.col-12{
+  background-color: #008b8b;
+}
+.fa{
+  color: #FFAE42;
+}
+.btn-warning{
+  size
+}
 @endpush
 
 @section('content')
@@ -22,9 +34,14 @@ a {
 </div>
 <!-- /.card-header -->
 <div class="card-body">
-      <div class="card" id="question-id">
+      <div class="card card-outline card-warning" id="question-id">
           <div class="card-header">
-            <a class="card-title" href="/answer"><h4>Title</h4></a>
+            <a href="/answer"><h4>Title</h4></a>
+            <a href="/" class="btn btn-xs btn-warning">Tag1</a>
+            <a href="/" class="btn btn-xs btn-warning">Tag2</a>
+            <a href="/" class="btn btn-xs btn-warning">Tag3</a>
+            <a href="/" class="btn btn-xs btn-warning">Tag4</a>
+            <a href="/" class="btn btn-xs btn-warning">Tag5</a>
           </div>
           <div class="card-body">
               Content

@@ -60,7 +60,7 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        return view('question.edit');
+        return view('question.form_edit');
     }
 
     /**

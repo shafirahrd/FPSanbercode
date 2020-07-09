@@ -12,17 +12,7 @@ class AnswerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $answer = Answer::all();
-        return view('answer.index', ['answer' => $answer]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+     
     public function create()
     {
         return view('answer.form');

@@ -35,5 +35,8 @@ class Controller extends BaseController
     	return view('question.form_edit');
     }
 
-     */
+    public function popular(){
+    	return view('question.index');
+    }
+    */
 }
