@@ -2,10 +2,14 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-left: 15%; padding: 25px;">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">
+                    <center>
+                        <h1 style="font-family: 'Montserrat Subrayada', sans-serif; color: #FFAE42">Register</h1>
+                    </center>
+                </div>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -15,7 +19,8 @@
                         </ul>
                     </div>
                 @endif
-                <div class="panel-body">
+                <div class="panel-body" style="padding: 25px;">
+                    <center>
                     <form class="form-horizontal" method="POST" action="/user">
                         {{ csrf_field() }}
 
@@ -78,7 +83,8 @@
                         </div>
 
                     </form>
-                    <a href="{{url('login')}}" >Has account? Login here</a>
+                    <!-- <a href="{{url('login')}}" >Has account? Login here</a> -->
+                    </center>
                 </div>
             </div>
         </div>

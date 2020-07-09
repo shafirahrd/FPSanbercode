@@ -53,6 +53,7 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
+        return view('question.form_edit');
     }
 
     /**
