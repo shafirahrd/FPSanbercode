@@ -11,7 +11,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function index(){
+    /*    public function index(){
     	return view('question.index');
     }
 
@@ -34,4 +34,6 @@ class Controller extends BaseController
     public function editquestion(){
     	return view('question.form_edit');
     }
+
+     */
 }

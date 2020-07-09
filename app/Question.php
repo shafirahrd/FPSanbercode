@@ -3,12 +3,27 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Question extends Model
 {
     //
     protected $table = 'questions';
     protected $fillable = ['title', 'content', 'tags', 'uploader_id', 'best_answer_id'];
+
+    /**
+     * Function to add new question
+     * 
+     * @return void
+     */
+    public static function insert(Request $request){
+       Question::create([
+            'title'=>$request->title,
+            'content'=>$request->content,
+            'tags'=>$request->tags,
+            'uploader_id'=>$request->Session::get('user_id')
+        ]);
+    }
 
     /**
      * Function to vote the question

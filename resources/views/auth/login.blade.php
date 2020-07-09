@@ -6,9 +6,18 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading" style="float: center;">Login</div>
-
+                @if(\Session::has('alert'))
+                    <div class="alert alert-danger">
+                        <div>{{Session::get('alert')}}</div>
+                    </div>
+                @endif
+                @if(\Session::has('alert-success'))
+                    <div class="alert alert-success">
+                        <div>{{Session::get('alert-success')}}</div>
+                    </div>
+                @endif
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="/">
+                    <form class="form-horizontal" method="POST" action="{{ url('/loginPost') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -54,6 +63,11 @@
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-4">
+                                <a href="{{url('register')}}" class="btn btn-md btn-warning">Register</a>
                             </div>
                         </div>
                     </form>

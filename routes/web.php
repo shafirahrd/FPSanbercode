@@ -13,22 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', 'UserController@index');
 
-Route::get('/', 'Controller@index');
-Route::get('/login', 'Controller@login');
-Route::get('/register', 'Controller@register');
-// Route::get('/question', 'QuestionController@index');
-// Route::get('/question/{id}', 'AnswerController@index');
+Route::resource('question', 'QuestionController');
+Route::resource('answer', 'AnswerController');
 
-Route::get('/question/create', 'Controller@createquestion');
-Route::post('/question/id', 'Controller@index');
-Route::get('/question/id/edit', 'Controller@editquestion');
-Route::put('/question/update', 'Controller@indexanswer');
+Route::get('/login', 'UserController@login');
+Route::post('/loginPost', 'UserController@loginPost');
+Route::get('/register', 'UserController@register');
+Route::post('/registerPost', 'UserController@registerPost');
+Route::get('/logout', 'UserController@logout');
 
-Route::delete('/question/id/delete', 'Controller@index');
-
-Route::get('/answer', 'Controller@indexanswer');
-// Route::get('/answer/{id}/create', 'AnswerController@create');
-Route::post('/answer/id', 'Controller@indexanswer');
-
-Route::get('/test', 'TestController@index');
+Route::resource('user', 'UserController');

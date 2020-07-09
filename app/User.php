@@ -39,8 +39,20 @@ class User extends Authenticatable
     ];
     public function AuthRouteAPI(Request $request){
         return $request->user();
+    }
+    /**
+     * Function to add new user
+     * 
+     * @return void
+     */
+    public static function insert(Request $request){
+        User::create([
+             'name'=>$request->name,
+             'email'=>$request->email,
+             'password'=>bcrypt($request->password),
+             'reputation'=>0
+         ]);
      }
-
     /**
      * Function to add user reputation. first parameter
      * is the user id, the seccond is the increment or

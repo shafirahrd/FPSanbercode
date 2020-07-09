@@ -16,7 +16,11 @@
           <img src="{{ asset('adminlte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">no user</a>
+          @if (Session::has('name'))
+            <a class="d-block">{{Session::get('name')}}</a>
+          @else
+            <a class="d-block">no user</a>  
+          @endif
         </div>
       </div>
 
