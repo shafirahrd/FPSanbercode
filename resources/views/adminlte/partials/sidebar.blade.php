@@ -17,7 +17,7 @@
         </div>
         <div class="info">
           @if (Session::has('name'))
-            <a class="d-block">{{Session::get('name')}}</a>
+            <a href="/user/{{Session::get('id')}}" class="d-block">{{Session::get('name')}}</a>
           @else
             <a class="d-block">no user</a>  
           @endif
@@ -27,27 +27,18 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          @if (Session::has('name'))
-          <li class="nav-item">
-            <a href="/logout" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Log out</p>
-            </a>
-          </li>
-          @else
             <li class="nav-item">
-              <a href="/login" class="nav-link">
+              <a href="/logout" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Log in</p>
+                <p>Home</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="/register" class="nav-link">
+              <a href="/login" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Register</p>
+                <p>Recent</p>
               </a>
             </li>  
-          @endif    
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

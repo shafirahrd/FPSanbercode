@@ -65,12 +65,8 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <a href="{{url('register')}}" class="btn btn-md btn-warning">Register</a>
-                            </div>
-                        </div>
                     </form>
+                    <a href="/user/create">Register</a>
                 </div>
             </div>
         </div>

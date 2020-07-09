@@ -16,7 +16,7 @@
                     </div>
                 @endif
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ url('/registerPost') }}">
+                    <form class="form-horizontal" method="POST" action="/user">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -78,7 +78,7 @@
                         </div>
 
                     </form>
-                    <a href="{{url('login')}}" class="btn btn-md btn-warning">Has account? Login here</a>
+                    <a href="{{url('login')}}" >Has account? Login here</a>
                 </div>
             </div>
         </div>
