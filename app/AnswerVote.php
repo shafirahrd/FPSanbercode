@@ -11,7 +11,7 @@ class AnswerVote extends Model
     protected $fillable = ['value','voter_id', 'answer_id'];
     
     /** RELATIONSIHPS */
-    public function uploader(){
+    public function voter(){
         return $this->belongsTo('App\User', 'voter_id');
     }
     public function answer(){

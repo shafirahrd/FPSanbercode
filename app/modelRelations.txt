@@ -35,7 +35,7 @@ ANSWER
     ->votes
 
 QUESTIONCOMMENT/ANSWERCOMMENT/QUESTIONVOTE/ANSWERVOTE
-*user yang komen/vote
-    ->uploader
+*user yang komen/voter
+    ->uploader/voter
 *question/answer yang dikomen/divote
     ->question/answer

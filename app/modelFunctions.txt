@@ -6,12 +6,12 @@ QUESTION
 *itung jumalh vote dengan id tertentu
     Question::count_votes(int $id)  
 *vote question ber id $questionid oleh user ber id $userid dengan value $value
-    Question::vote($userid, $questionid, $value)  
+    Question::vote(int $userid, int $questionid, int $value)  
 *menset jawaban dengan id $answerid menjadi best answer dari quesion dengan id $questionid  
-    Question::set_best_answer($questionid, $answerid)
+    Question::set_best_answer(int $questionid, int $answerid)
 
 ANSWER
 *itung jumalh vote dengan id tertentu
     Answer::count_votes(int $id)  
 *vote answer ber id $answerid oleh user ber id $userid dengan value $value
-    Answer::vote($userid, $answerid, $value)
+    Answer::vote(int $userid, int $answerid, int $value)
