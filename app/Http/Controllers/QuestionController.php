@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class QuestionController extends Controller
 {
@@ -25,7 +26,10 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('question.form');
+        if(Session::has('id'))
+            return view('question.form');
+        else
+            return redirect('login');
     }
 
     /**
@@ -60,7 +64,11 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        return view('question.form_edit');
+        $question = Question::find($id);
+        if(Session::has('id') && (Session::get('id')==$question->uploader->id)) //make sure the one editing is the one creating
+            return view('question.form_edit', compact('question'));
+        else
+            return redirect('question');
     }
 
     /**
@@ -72,8 +80,12 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Question::update($request, $id);
-        return redirect()->action('QuestionController@index');
+        $question = Question::find($id);
+        if(Session::has('id') && (Session::get('id')==$question->uploader->id)){
+            Question::update_($request, $id);
+            return redirect()->action('QuestionController@show', ['question'=>$id]);
+        }else
+        return redirect('question');
     }
 
     /**
@@ -84,9 +96,13 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        $question = Question::destroy($id);
-        if ($question) {
+        $question = Question::find($id);
+        if(Session::has('id') && (Session::get('id')==$question->uploader->id)){
+            $question = Question::destroy($id);
+            if ($question) {
+                return redirect('question');
+            }
+        }else
             return redirect('question');
-        }
     }
 }

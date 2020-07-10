@@ -4,12 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Question extends Model
 {
     //
     protected $table = 'questions';
     protected $fillable = ['title', 'content', 'tags', 'uploader_id', 'best_answer_id'];
+    use SoftDeletes;
 
     /**
      * Function to add new question
@@ -22,12 +25,11 @@ class Question extends Model
             'title' => $request->title,
             'content' => $request->content,
             'tags' => $request->tags,
-            'uploader_id' => $request->Session::get('user_id')
+            'uploader_id' => Session::get('id')
         ]);
     }
-    public static function update(Request $request, $id)
+    public static function update_(Request $request, $id)
     {
-
         Question::where('id', $id)
             ->update([
                 'title' => $request['title'],

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AnswerController extends Controller
 {
@@ -15,7 +16,7 @@ class AnswerController extends Controller
      
     public function create()
     {
-        return view('answer.form');
+        return view('question');
     }
 
     /**
@@ -24,10 +25,10 @@ class AnswerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        Answer::insert($request);
-        return redirect()->action('QuestionController@index');
+        Answer::insert($request, $id);
+        return redirect()->action('QuestionController@show', ['question'=>$id]);
     }
 
     /**
@@ -38,8 +39,7 @@ class AnswerController extends Controller
      */
     public function show($id)
     {
-        $answer = Answer::find($id);
-        return view('answer.show', compact('answer'));
+        return redirect('question');
     }
 
     /**
@@ -50,7 +50,9 @@ class AnswerController extends Controller
      */
     public function edit($id)
     {
-        return view('question.edit');
+        $answer = Answer::find($id);
+        if(Session::has('id') && (Session::get('id')==$answer->uploader->id))
+        return view('answer.form_edit', compact('answer'));
     }
 
     /**
@@ -62,8 +64,13 @@ class AnswerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Answer::update($request, $id);
-        return redirect()->action('QuestionController@index');
+        $answer = Answer::find($id);
+        $question = $answer->question;
+        if(Session::has('id') && (Session::get('id')==$answer->uploader->id)){
+            Answer::update_($request, $id);
+            return redirect()->action('QuestionController@show', ['question'=>$question->id]);
+        }
+        return redirect('question');
     }
 
     /**
@@ -74,9 +81,14 @@ class AnswerController extends Controller
      */
     public function destroy($id)
     {
-        $answer = Answer::destroy($id);
-        if ($answer) {
-            return redirect('answer');
+        $answer = Answer::find($id);
+        $question = $answer->question;
+        if(Session::has('id') && (Session::get('id')==$answer->uploader->id)){
+            $success = Answer::destroy($id);
+            if ($success) {
+                return redirect()->action('QuestionController@show', ['question'=>$question->id]);
+            }
         }
+        return redirect('question');
     }
 }

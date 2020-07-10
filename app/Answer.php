@@ -4,12 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Answer extends Model
 {
     //
     protected $table = 'answers';
     protected $fillable = ['content', 'uploader_id', 'question_id'];
+    use SoftDeletes;
 
     /**
      * Function to get the number of votes
@@ -26,22 +29,19 @@ class Answer extends Model
         }
         return $votes;
     }
-    public static function insert(Request $request)
+    public static function insert(Request $request, $id)
     {
         Answer::create([
             'content' => $request->content,
-            'uploader_id' => $request->Session::get('user_id'),
-            'question_id' => $request->question_id
+            'uploader_id' => Session::get('id'),
+            'question_id' => $id
         ]);
     }
-    public static function update(Request $request, $id)
+    public static function update_(Request $request, $id)
     {
-
         Answer::where('id', $id)
             ->update([
-                'title' => $request['title'],
                 'content' => $request['content'],
-                'tags' => $request['tags']
             ]);
     }
 

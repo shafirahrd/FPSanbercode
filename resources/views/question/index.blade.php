@@ -34,26 +34,30 @@ h4 {
 </div>
 <!-- /.card-header -->
 <div class="card-body">
-      <div class="card card-outline card-warning" id="question-id">
-          <div class="card-header">
-            <a href="/answer"><h4>Title</h4></a>
-            <a href="/" class="btn btn-xs btn-warning">Tag1</a>
-            <a href="/" class="btn btn-xs btn-warning">Tag2</a>
-            <a href="/" class="btn btn-xs btn-warning">Tag3</a>
-            <a href="/" class="btn btn-xs btn-warning">Tag4</a>
-            <a href="/" class="btn btn-xs btn-warning">Tag5</a>
-          </div>
-          <div class="card-body">
-              Content
-          </div>
-          <!-- /.card-body -->
-          <div class="card-footer">
-            <span class="margin-right"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-            <span class="margin-right"><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
-            <span class="float-right">Created at</span>
-          </div>
-          <!-- /.card-footer-->
+  @foreach ($questions as $question)
+    <div class="card card-outline card-warning" id="question-id">
+      <div class="card-header">
+        <a href="/question/{{$question->id}}"><h4>{{$question->title}}</h4></a>
+        <a href="/user/{{$question->uploader->id}}"><h6>{{$question->uploader->name}}</h6></a>
+
+        @foreach (explode(",",$question->tags) as $tag)
+          <a href="#" class="btn btn-xs btn-warning">{{$tag}}</a>
+        @endforeach
       </div>
+      <div class="card-body">
+        {{$question->content}}
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+        <span class="margin-right"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+        <span class="margin-right"><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+        <span class="margin-right">{{App\Question::count_votes($question->id)}}</span>
+        <span class="float-right">Created at {{$question->created_at}}</span>
+      </div>
+      <!-- /.card-footer-->
+    </div>
+  @endforeach
+
 </div>
 @endsection
 

@@ -17,6 +17,7 @@ Route::get('/', 'UserController@index');
 
 Route::resource('question', 'QuestionController');
 Route::resource('answer', 'AnswerController');
+Route::post('answer/{id}', 'AnswerController@store');
 
 Route::get('/login', 'UserController@login');
 Route::post('/loginPost', 'UserController@loginPost');

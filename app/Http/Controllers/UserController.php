@@ -32,15 +32,14 @@ class UserController extends Controller
         $email = $request->email;
         $password = $request->password;
 
-        $data = User::where('email',$email)->get();
+        $data = User::where('email',$email)->first();
         if($data){ //apakah email tersebut ada atau tidak
-            $data = $data[0];
             if(Hash::check($password,$data->password)){
                 Session::put('id',$data->id);
                 Session::put('name',$data->name);
                 Session::put('email',$data->email);
                 Session::put('login',TRUE);
-                return redirect('/question');
+                return redirect('question');
             }
             else{
                 return redirect('login')->with('alert','Invalid email or password!');
@@ -90,7 +89,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        return view('auth.profile');
+        $user = User::find($id);
+        return view('auth.profile', compact('user'));
     }
 
     /**

@@ -12,21 +12,21 @@
 <div class="card-body">
       <div class="card card-outline card-warning" id="question-id">
           <div class="card-header">
-            <h4>Welcome, {{Session::get('name')}}!</h4>
-            <a href="/user/{{Session::get('id')}}">
+            <h4>Welcome, {{$user->name}}!</h4>
+            <a href="/user/{{$user->id}}">
               <i class="fas fa-edit" style="color: black; float: right; margin-top: -30px;" aria-hidden="true"> Edit</i>
             </a>
           </div>
           <div class="card-body">
-              <p>Email: </p>
+              <p>Email: {{$user->email}}</p>
               <p>Password: ******</p>
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-            <a href="#" class="btn btn-xs btn-danger">Reputation: 124</a>
-            <a href="#" class="btn btn-xs btn-success">Questions asked: 52</a>
-            <a href="#" class="btn btn-xs btn-primary">Answers : 1234</a>
-            <span class="float-right">Member since: </span>
+            <a href="#" class="btn btn-xs btn-danger">Reputation: {{$user->reputation}}</a>
+            <a href="#" class="btn btn-xs btn-success">Questions asked: {{count($user->questions)}}</a>
+            <a href="#" class="btn btn-xs btn-primary">Answers : {{count($user->answers)}}</a>
+            <span class="float-right">Member since: {{$user->created_at}}</span>
           </div>
           <!-- /.card-footer-->
       </div>
