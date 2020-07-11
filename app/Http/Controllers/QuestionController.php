@@ -18,7 +18,15 @@ class QuestionController extends Controller
         $questions = Question::all();
         return view('question.index', ['questions' => $questions]);
     }
-
+    public function sortedIndex($param)
+    {
+        if($param == 'fresh'){
+            $questions = Question::get_newest();
+        }elseif ($param == 'trending') {
+            $questions = Question::get_top_voted();
+        }
+        return view('question.index', ['questions' => $questions]);
+    }
     /**
      * Show the form for creating a new resource.
      *

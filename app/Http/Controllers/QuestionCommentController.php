@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\QuestionComment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class QuestionCommentController extends Controller
 {

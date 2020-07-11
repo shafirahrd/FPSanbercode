@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\AnswerComment;
+use App\Answer;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
 
 class AnswerCommentController extends Controller
 {
@@ -30,9 +31,10 @@ class AnswerCommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        Question::insert($request);
-        return redirect()->action('QuestionController@index');
+        AnswerComment::insert($request, $id);
+        $answer = Answer::find($id);
+        return redirect()->action('QuestionController@show', ['question' => $answer->question->id]);
     }
 }

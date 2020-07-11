@@ -27,13 +27,13 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-              <a href="/question" class="nav-link" style="color: white;">
+              <a href="/question/sortby/trending" class="nav-link" style="color: white;">
                 <i class="fa fa-fire nav-icon" style="color: #FFAE42"></i>
                 <p>Popular</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="/question" class="nav-link" style="color: white;">
+              <a href="/question/sortby/fresh" class="nav-link" style="color: white;">
                 <i class="fa fa-question nav-icon" style="color: #FFAE42"></i>
                 <p>Recent</p>
               </a>

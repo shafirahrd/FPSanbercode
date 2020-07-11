@@ -14,11 +14,10 @@ class QuestionComment extends Model
 
     public static function insert(Request $request, $id)
     {
-        QuestionComment::create([
+        return QuestionComment::create([
             'question_id' => $id,
             'uploader_id' => Session::get('id'),
             'content' => $request->content
-
         ]);
     }
 

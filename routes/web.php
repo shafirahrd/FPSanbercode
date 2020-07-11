@@ -14,17 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'UserController@index');
+Route::resource('user', 'UserController');
 
 Route::resource('question', 'QuestionController');
+Route::get('question/sortby/{param}', 'QuestionController@sortedIndex');
+
 Route::resource('answer', 'AnswerController');
 Route::post('answer/{id}', 'AnswerController@store');
-Route::post('comment/{id}', 'QuestionCommentController@store');
+
+Route::post('question/comment/{id}', 'QuestionCommentController@store');
+Route::post('answer/comment/{id}', 'AnswerCommentController@store');
 
 Route::get('/login', 'UserController@login');
 Route::post('/loginPost', 'UserController@loginPost');
-
 Route::get('/register', 'UserController@register');
-
 Route::get('/logout', 'UserController@logout');
 
-Route::resource('user', 'UserController');

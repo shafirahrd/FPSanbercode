@@ -18,7 +18,7 @@
             </div>
             <div class="form-group row ">
                 <div class="col-12">
-                    <input type="text" class="form-control" name="tags" id="tags" placeholder="Enter your question tags here">
+                    <input type="text" class="form-control" name="tags" id="tags" placeholder="Enter your question tags here" required>
                     <p style="font-size: small; color: silver;">*if more than one, separate by comma (,)</p>
                 </div>
             </div>

@@ -13,9 +13,11 @@
       <div class="card card-outline card-warning" id="question-id">
           <div class="card-header">
             <h4>Welcome, {{$user->name}}!</h4>
-            <a href="/user/{{$user->id}}">
-              <i class="fas fa-edit" style="color: black; float: right; margin-top: -30px;" aria-hidden="true"> Edit</i>
-            </a>
+            @if (Session::han('id') && (Session::get('id')==$user->id))
+              <a href="/user/{{$user->id}}/edit">
+                <i class="fas fa-edit" style="color: black; float: right; margin-top: -30px;" aria-hidden="true"> Edit</i>
+              </a>
+            @endif
           </div>
           <div class="card-body">
               <p>Email: {{$user->email}}</p>

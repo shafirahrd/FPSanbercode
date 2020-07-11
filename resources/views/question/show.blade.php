@@ -36,6 +36,17 @@ textarea {
 .justify-content-around {
   margin-top: 15px;
 }
+.comment-span{
+  margin: 0 20px;
+  cursor: pointer;
+  vertical-align: -webkit-baseline-middle;
+}
+.comment-span:hover{
+  color: blue;
+}
+.comment-content{
+  margin-top: 20px;
+}
 @endpush
 
 @section('content')
@@ -64,10 +75,12 @@ textarea {
           @csrf
           <input class="btn btn-danger col-6" type="submit" value="Delete" />
         </form>
-        <button class="btn btn-primary col-2" type="button" data-toggle="modal" data-target="#staticBackdrop">
-          Add Comment
-        </button>
       </div>
+    @endif
+    @if (Session::has('id'))
+      <button class="btn btn-primary col-2 float-right" type="button" data-toggle="modal" data-target="#staticBackdrop">
+        Add Comment
+      </button>
       <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -78,7 +91,7 @@ textarea {
               </button>
             </div>
             <div class="modal-body">
-              <form action="/comment/{{$question->id}}" method="POST">
+              <form action="/question/comment/{{$question->id}}" method="POST">
                 @csrf
                 <div class="mb-3">
                   <textarea name="content" class="textarea" placeholder="Type your comment here"></textarea>
@@ -95,29 +108,32 @@ textarea {
         </div>
       </div>
     @endif
-</div>
-<!-- /.card-header -->
-  <div class="card-header">
-    <h2>Comment</h2>
-    @foreach ($question->comments as $comments)
-    <div class="card">
-        <div class="card-body">
-          <p style="white-space: pre-wrap;">{{$comments->content}} -<a href="/user/{{$comments->uploader->id}}">{{$comments->uploader->name}}</a></p>
-        </div>
-        <div class="card-footer d-flex justify-content-between">
-          <span class="small auto">
-            created: {{$comments->created_at}}, last updated: {{$comments->updated_at}}
-        </span>
-        </div>
+    @if (count($question->comments)>0)
+    <span class="comment-span">show comments({{count($question->comments)}})</span>
+    <span class="comment-span" style="display: none;">hide comments</span>
+    <div class="card-header comment-content">
+      @foreach ($question->comments as $comments)
+      <div class="card">
+          <div class="card-body">
+            <p style="white-space: pre-wrap;">{{$comments->content}} -<a href="/user/{{$comments->uploader->id}}">{{$comments->uploader->name}}</a></p>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <span class="small auto">
+              {{$comments->created_at}}
+            </span>
+          </div>
+      </div>
+      @endforeach
     </div>
+    @endif
+</div>
 
-    @endforeach
-  </div>
   <div class="card-header">
     <h2>Answer</h2>
     <div class="card-body">
       @foreach ($question->answers as $answer)
           <div class="card">
+            <div class="card-header">
               <div class="card-body">
               <p style="white-space: pre-wrap;">{{$answer->content}}</p>
               @if(Session::has('id') && (Session::get('id')==$answer->uploader->id))
@@ -143,7 +159,56 @@ textarea {
                   created: {{$answer->created_at}}, last updated: {{$answer->updated_at}}
               </span>
               </div>
-              <!-- /.card-footer-->
+              @if (Session::has('id'))
+                <button class="btn btn-primary col-3 float-right" type="button" data-toggle="modal" data-target="#staticBackdropAns">
+                  Add Comment
+                </button>
+                <div class="modal fade" id="staticBackdropAns" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Comment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="/answer/comment/{{$answer->id}}" method="POST">
+                          @csrf
+                          <div class="mb-3">
+                            <textarea name="content" class="textarea" placeholder="Type your answer comment here"></textarea>
+                          </div>
+                          <div class="offset-2 col-8">
+                            <button  class="btn btn-primary col-12 margin-custom">Add Comment</button>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endif
+              @if (count($answer->comments)>0)
+              <span class="comment-span">show comments({{count($answer->comments)}})</span>
+              <span class="comment-span" style="display: none;">hide comments</span>
+              <div class="card-header comment-content">
+                @foreach ($answer->comments as $comments)
+                <div class="card">
+                    <div class="card-body">
+                      <p style="white-space: pre-wrap;">{{$comments->content}} -<a href="/user/{{$comments->uploader->id}}">{{$comments->uploader->name}}</a></p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                      <span class="small auto">
+                        {{$comments->created_at}}
+                      </span>
+                    </div>
+                </div>
+                @endforeach
+              </div>
+              @endif
+            </div>
           </div>
       @endforeach     
         <div class="card card-outline card-warning">
@@ -175,3 +240,7 @@ textarea {
     </div>
   </div>
 @endsection
+
+@push('scripts')
+  <script src="{{asset('\comment.js')}}"></script>
+@endpush

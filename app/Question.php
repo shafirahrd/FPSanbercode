@@ -12,8 +12,19 @@ class Question extends Model
     //
     protected $table = 'questions';
     protected $fillable = ['title', 'content', 'tags', 'uploader_id', 'best_answer_id'];
+    protected $appends = ['votes'];
     use SoftDeletes;
 
+    public static function get_newest(){
+        return Question::select('*')->orderBy('created_at')->get();
+    }
+    public static function get_top_voted(){
+        $questions = Question::all();
+        foreach ($questions as $question) {
+            $question->votes = Question::count_votes($question->id);
+        }
+        return $questions->sortBy('votes');
+    }
     /**
      * Function to add new question
      * 
