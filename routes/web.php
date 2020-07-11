@@ -21,6 +21,7 @@ Route::get('question/sortby/{param}', 'QuestionController@sortedIndex');
 
 Route::resource('answer', 'AnswerController');
 Route::post('answer/{id}', 'AnswerController@store');
+Route::post('comment/{id}', 'QuestionCommentController@store');
 
 Route::post('question/comment/{id}', 'QuestionCommentController@store');
 Route::post('answer/comment/{id}', 'AnswerCommentController@store');
