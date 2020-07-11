@@ -16,6 +16,9 @@ span.medium {
 span.auto {
   margin-left: auto;
 }
+span.small.auto{
+  direction: rtl;
+}
 span.medium.auto, span.small.auto {
   float:right;
 }
@@ -87,6 +90,13 @@ a.comment-add-button{
   font-weight: bold;
   color: #008b8b;
 }
+a.commenta-add-button{
+  position:absolute;
+  right:50px;
+  top: 200px;
+  font-weight: bold;
+  color: #008b8b;
+}
 .comment-span{
   display:block;
   margin: 10px 20px 0;
@@ -94,6 +104,10 @@ a.comment-add-button{
 }
 .comment-span:hover{
   color: blue;
+}
+.btn.btn-warning.margin-custom {
+  color: #008b8b;
+  font-weight: bold;
 }
 @endpush
 
@@ -118,9 +132,9 @@ a.comment-add-button{
         </div>
       @endif
       by <a href="/user/{{$question->uploader->id}}">  {{$question->uploader->name}}</a><hr>
-      <span class="margin-right icon"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-      <span class="margin-right icon"><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
-      <span class="margin-right custom"><i class="fa fa-vote-yea" aria-hidden="true"> {{App\Question::count_votes($question->id)}}</i></span>
+      <span class="margin-right icon"><i class="fa fa-thumbs-up" style="color: #FFAE42;" aria-hidden="true"></i></span>
+      <span class="margin-right icon"><i class="fa fa-thumbs-down" style="color: #FFAE42;" aria-hidden="true"></i></span>
+      <span class="margin-right custom"><i class="fa fa-vote-yea" style="color: #FFAE42;" aria-hidden="true"> {{App\Question::count_votes($question->id)}}</i></span>
       <span class="medium auto">
         created: {{$question->created_at}}, last updated: {{$question->updated_at}}
       </span>  
@@ -142,7 +156,7 @@ a.comment-add-button{
                   <textarea name="content" class="textarea" placeholder="Type your comment here"></textarea>
                 </div>
                 <div class="offset-2 col-8">
-                  <button  class="btn btn-primary col-12 margin-custom">Add Comment</button>
+                  <button  class="btn btn-warning col-12 margin-custom">Add Comment</button>
                 </div>
               </form>
             </div>
@@ -155,13 +169,13 @@ a.comment-add-button{
       <a href="#" class="comment-add-button" data-toggle="modal" data-target="#staticBackdrop">Add Comment</a>
     @endif
     @if (count($question->comments)>0)
-    <span class="comment-span comment" style="margin-top: 10px;">show comments({{count($question->comments)}})</span>
+    <span class="comment-span comment">show comments({{count($question->comments)}})</span>
     <span class="comment-span hide">hide comments</span>
     <div class="card-header comment-content">
       <div class="card">
         <div class="card-body">
       @foreach ($question->comments as $comments)
-          <p>{{$comments->content}} - <a href="/user/{{$comments->uploader->id}}"> {{$comments->uploader->name}}</a>
+          <p>{{$comments->content}} - <a href="/user/{{$comments->uploader->id}}"> {{$comments->uploader->name}}, at</a>
           <span class="small auto">{{$comments->created_at}}</span></p><hr>
       @endforeach
         </div>
@@ -195,18 +209,15 @@ a.comment-add-button{
             </div>
             @endif
             by <a href="/user/{{$answer->uploader->id}}"> {{$answer->uploader->name}}</a><hr>
-            <span class="margin-right icon"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-            <span class="margin-right icon"><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
-            <span class="margin-right custom"><i class="fa fa-vote-yea" aria-hidden="true"> {{App\Answer::count_votes($answer->id)}}</i></span>
+            <span class="margin-right icon"><i class="fa fa-thumbs-up" style="color: #FFAE42;" aria-hidden="true"></i></span>
+            <span class="margin-right icon"><i class="fa fa-thumbs-down" style="color: #FFAE42;" aria-hidden="true"></i></span>
+            <span class="margin-right custom"><i class="fa fa-vote-yea" style="color: #FFAE42;" aria-hidden="true"> {{App\Answer::count_votes($answer->id)}}</i></span>
             <span class="small auto">
                 created: {{$answer->created_at}}, last updated: {{$answer->updated_at}}
             </span>
             </div>
             <!-- /.card-footer-->
             @if (Session::has('id'))
-                <button class="btn btn-primary col-3 float-right" type="button" data-toggle="modal" data-target="#staticBackdropAns">
-                  Add Comment
-                </button>
                 <div class="modal fade" id="staticBackdropAns" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -223,7 +234,7 @@ a.comment-add-button{
                             <textarea name="content" class="textarea" placeholder="Type your answer comment here"></textarea>
                           </div>
                           <div class="offset-2 col-8">
-                            <button  class="btn btn-primary col-12 margin-custom">Add Comment</button>
+                            <button  class="btn btn-warning col-12 margin-custom">Add Comment</button>
                           </div>
                         </form>
                       </div>
@@ -233,23 +244,20 @@ a.comment-add-button{
                     </div>
                   </div>
                 </div>
+                <a href="#" class="commenta-add-button" data-toggle="modal" data-target="#staticBackdropAns">Add Comment</a>
               @endif
               @if (count($answer->comments)>0)
-              <span class="comment-span">show comments({{count($answer->comments)}})</span>
+              <span class="comment-span comment">show comments({{count($answer->comments)}})</span>
               <span class="comment-span hide">hide comments</span>
               <div class="card-header comment-content">
-                @foreach ($answer->comments as $comments)
                 <div class="card">
-                    <div class="card-body">
-                      <p>{{$comments->content}} -<a href="/user/{{$comments->uploader->id}}">{{$comments->uploader->name}}</a></p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                      <span class="small auto">
-                        {{$comments->created_at}}
-                      </span>
-                    </div>
-                </div>
+                  <div class="card-body">
+                @foreach ($answer->comments as $comments)
+                    <p>{{$comments->content}} - <a href="/user/{{$comments->uploader->id}}"> {{$comments->uploader->name}}</a>
+                    <span class="small auto">{{$comments->created_at}}</span></p><hr>
                 @endforeach
+                  </div>
+                </div>
               </div>
               @endif
         </div>
@@ -268,7 +276,7 @@ a.comment-add-button{
                 <textarea name="content" class="textarea" placeholder="Type your answer here"></textarea>
               </div>
               <div class="offset-2 col-8">
-                <button  class="btn btn-warning col-12 margin-custom" style="color: #008b8b; font-weight: bold;">Add Answer</button>
+                <button  class="btn btn-warning col-12 margin-custom">Add Answer</button>
               </div>
             </form>
           </div>
@@ -276,7 +284,7 @@ a.comment-add-button{
         <div class="card-body pad">
             <p class="text-center">Log in to answer</p>
               <div class="offset-2 col-8">
-                <a href="/login" class="btn btn-info col-12 margin-custom">Log in</a>
+                <a href="/login" class="btn btn-warning col-12 margin-custom">Log in</a>
               </div>
         @endif
       </div>
