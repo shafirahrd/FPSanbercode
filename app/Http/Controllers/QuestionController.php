@@ -26,7 +26,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        if(Session::has('id'))
+        if (Session::has('id'))
             return view('question.form');
         else
             return redirect('login');
@@ -65,7 +65,7 @@ class QuestionController extends Controller
     public function edit($id)
     {
         $question = Question::find($id);
-        if(Session::has('id') && (Session::get('id')==$question->uploader->id)) //make sure the one editing is the one creating
+        if (Session::has('id') && (Session::get('id') == $question->uploader->id)) //make sure the one editing is the one creating
             return view('question.form_edit', compact('question'));
         else
             return redirect('question');
@@ -81,11 +81,11 @@ class QuestionController extends Controller
     public function update(Request $request, $id)
     {
         $question = Question::find($id);
-        if(Session::has('id') && (Session::get('id')==$question->uploader->id)){
+        if (Session::has('id') && (Session::get('id') == $question->uploader->id)) {
             Question::update_($request, $id);
-            return redirect()->action('QuestionController@show', ['question'=>$id]);
-        }else
-        return redirect('question');
+            return redirect()->action('QuestionController@show', ['question' => $id]);
+        } else
+            return redirect('question');
     }
 
     /**
@@ -97,12 +97,12 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         $question = Question::find($id);
-        if(Session::has('id') && (Session::get('id')==$question->uploader->id)){
+        if (Session::has('id') && (Session::get('id') == $question->uploader->id)) {
             $question = Question::destroy($id);
             if ($question) {
                 return redirect('question');
             }
-        }else
+        } else
             return redirect('question');
     }
 }

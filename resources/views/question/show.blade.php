@@ -70,6 +70,9 @@ div.card-body.answer {
   margin-right: 30px;
   margin-left: 30px;
 }
+div.card-header.answer{
+  border: none;
+}
 @endpush
 
 @section('content')
@@ -103,6 +106,9 @@ div.card-body.answer {
     
 </div>
   <!-- /.card-header -->
+  <div class="card-header answer">
+    <h3>Comments</h3>
+  </div>
   <div class="card-body answer">
     @foreach ($question->answers as $answer)
         <div class="card">
