@@ -25,12 +25,27 @@ h4 {
 .btn-warning{
   size
 }
+h1 {
+  font-weight: bold;
+  color: #003e3f;
+}
+.btn.btn-primary.col-12{
+  border: none;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 50%;
+}
 @endpush
 
 @section('content')
 <div class="card-header d-flex justify-content-between">
-  <h3 class="card-title">Questions</h3>
-  <a href="/question/create"><button  class="btn btn-primary col-12">Add Question</button></a>
+  <h1>Questions</h1>
+  <a href="/question/create"><button  class="btn btn-primary col-12"><i class="fas fa-plus"></i> Question</button></a>
 </div>
 <!-- /.card-header -->
 <div class="card-body">

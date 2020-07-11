@@ -1,13 +1,6 @@
 @extends('adminlte.master')
 
 @push('styles')
-h2 {
-    text-align: center;
-    margin: 30px;
-}
-textarea.h300{
-    height: 300px;
-}
 @endpush
 
 @section('content')
@@ -34,12 +27,12 @@ textarea.h300{
             </div>
             <div class="form-group row">
                 <div class="offset-2 col-8">
-                    <button type="submit" class="btn btn-primary col-12">Upload</button>
+                    <button type="submit" class="btn btn-warning col-12" style="color: #008b8b; font-weight: bold;">UPDATE</button>
                 </div>
             </div>
-            @method('put')
         </form>
     </div>
+
 @endsection
 
 @push('scripts')

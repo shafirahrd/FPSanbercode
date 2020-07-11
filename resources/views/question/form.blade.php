@@ -1,5 +1,8 @@
 @extends('adminlte.master')
 
+@push('styles')
+@endpush
+
 @section('content')
 
     <div class="container-fluid d-flex justify-content-center flex-column" >
@@ -24,7 +27,7 @@
             </div>
             <div class="form-group row">
                 <div class="offset-2 col-8">
-                    <button type="submit" class="btn btn-primary col-12">Upload</button>
+                    <button type="submit" class="btn btn-warning col-12" style="color: #008b8b; font-weight: bold;">ASK</button>
                 </div>
             </div>
         </form>
