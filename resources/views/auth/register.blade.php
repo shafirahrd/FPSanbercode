@@ -83,7 +83,7 @@
                         </div>
 
                     </form>
-                    <!-- <a href="{{url('login')}}" >Has account? Login here</a> -->
+                    Has account? <a href="{{url('login')}}" >Login here</a>
                     </center>
                 </div>
             </div>

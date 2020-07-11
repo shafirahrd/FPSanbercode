@@ -75,7 +75,7 @@
                             </div>
                         </div>
                     </form>
-                    <!-- <a href="/user/create">Register</a> -->
+                    No account yet?<a href="/user/create">Register</a> first!
                     </center>
                 </div>
             </div>

@@ -13,7 +13,7 @@ textarea.h300{
 @section('content')
 
     <div class="container-fluid d-flex justify-content-center flex-column" >
-        <h2 class="text-center">Edit your answer here</h2>
+        <h2 class="text-center" style="margin-top:30px; margin-bottom:15px; font-weight: bold; color: #003e3f;">Edit your answer here</h2>
         <form action="/answer/{{$answer->id}}" method="POST" class="col-6  align-self-center">
             @csrf
             <div class="form-group row">
@@ -23,7 +23,7 @@ textarea.h300{
             </div>
             <div class="form-group row">
                 <div class="offset-2 col-8">
-                    <button type="submit" class="btn btn-primary col-12">Save</button>
+                    <button type="submit" class="btn btn-warning col-12" style="color: #008b8b; font-weight: bold;">Save</button>
                 </div>
             </div>
             @method('put')
