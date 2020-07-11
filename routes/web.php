@@ -25,9 +25,12 @@ Route::post('comment/{id}', 'QuestionCommentController@store');
 
 Route::post('question/comment/{id}', 'QuestionCommentController@store');
 Route::post('answer/comment/{id}', 'AnswerCommentController@store');
+Route::post('/question/vote', 'QuestionController@vote');
+Route::post('answer/vote/{id}', 'AnswerCommentController@store');
 
 Route::get('/login', 'UserController@login');
 Route::post('/loginPost', 'UserController@loginPost');
 Route::get('/register', 'UserController@register');
 Route::get('/logout', 'UserController@logout');
 
+//Route::get('/test', function(){ return view('test'); });

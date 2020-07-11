@@ -14,14 +14,10 @@
                     <input type="text" class="form-control" name="id" id="title" placeholder="Enter your question title here" required>
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-12">
-                    <textarea style="height: 300px" type="text" class="form-control" name="content" id="content" placeholder="Enter your question content here" required></textarea>
-                </div>
-            </div>
+
             <div class="form-group row ">
                 <div class="col-12">
-                    <input type="text" class="form-control" name="tags" id="tags" placeholder="Enter your question tags here" required>
+                    <input type="text" class="form-control" name="value" id="tags" placeholder="Enter your question tags here" required>
                     <p style="font-size: small; color: silver;">*if more than one, separate by comma (,)</p>
                 </div>
             </div>

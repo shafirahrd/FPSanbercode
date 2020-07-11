@@ -67,9 +67,13 @@ h6 {
       <!-- /.card-body -->
       <div class="card-footer">
         by <a href="/user/{{$question->uploader->id}}"><h6>{{$question->uploader->name}}</h6></a><hr>
-        <span class="margin-right"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-        <span class="margin-right"><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
-        <span class="margin-right"><i class="fa fa-vote-yea" aria-hidden="true"> {{App\Question::count_votes($question->id)}}</i></span>
+        <span class="margin-right">
+          <i data-token="{{ csrf_token() }}" onclick="questionVote({{$question->id}},1)" class="fa fa-thumbs-up" aria-hidden="true"></i>
+        </span>
+        <span class="margin-right">
+          <i data-token="{{ csrf_token() }}" onclick="questionVote({{$question->id}},-1)" class="fa fa-thumbs-down" aria-hidden="true">
+          </i></span>
+        <span class="margin-right"><i class="fa fa-vote-yea" aria-hidden="true" id="qv{{$question->id}}"> {{App\Question::count_votes($question->id)}}</i></span>
         <span class="float-right">Created at {{$question->created_at}}</span>
       </div>
       <!-- /.card-footer-->
@@ -80,5 +84,5 @@ h6 {
 @endsection
 
 @push('scripts')
-
+  <script src="{{asset('vote.js')}}"></script>
 @endpush

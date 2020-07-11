@@ -59,7 +59,7 @@ class Question extends Model
         $record = QuestionVote::where('voter_id', $userid)
             ->where('question_id', $questionid)
             ->get();
-        if ($record) {
+        if (count($record)>0) {
             $record[0]->update([
                 'value' => $value
             ]);

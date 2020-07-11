@@ -87,6 +87,14 @@ a.comment-add-button{
   font-weight: bold;
   color: #008b8b;
 }
+.comment-span{
+  display:block;
+  margin: 10px 20px 0;
+  cursor: pointer;
+}
+.comment-span:hover{
+  color: blue;
+}
 @endpush
 
 @section('content')
@@ -274,3 +282,7 @@ a.comment-add-button{
       </div>
   </div>
 @endsection
+
+@push('scripts')
+    <script src="{{asset('\comment.js')}}"></script>
+@endpush

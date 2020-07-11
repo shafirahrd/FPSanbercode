@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -112,5 +113,19 @@ class QuestionController extends Controller
             }
         } else
             return redirect('question');
+    }
+
+    public function vote(Request $request){
+        if (Session::has('id')) {
+            $user = User::find(Session::get('id'));
+            if ($user->reputation >= 15){
+                Question::vote($user->id, $request->id, $request->value);
+                $finalVote = Question::count_votes($request->id);
+                return response()->json(array('msg'=> 'vote recorded', 'value'=>$finalVote));
+            }else{
+                return response()->json(array('msg'=> 'minimum requirement to vote is 15 reputation', 'value'=>null));
+            }
+        } else
+            return response()->json(array('msg'=> null, 'value'=>null));
     }
 }
