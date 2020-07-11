@@ -16,7 +16,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-12">
-                    <textarea style="height: 300px" type="text" class="form-control" name="content" id="content" placeholder="Enter your question content here" required></textarea>
+                    <textarea style="height: 300px" type="text" class="form-control" name="content" id="content-ta" placeholder="Enter your question content here" required></textarea>
                 </div>
             </div>
             <div class="form-group row ">
@@ -47,4 +47,9 @@
         $('textarea#content').val(content.replace(/(&quot\;)/g,""));
         $('#tags').val("{{$question->tags}}");
     </script>
+<script src="{{asset('ckeditor/ckeditor/ckeditor.js')}}"></script>
+<script>
+  CKEDITOR.replace( 'content-ta' );
+  CKEDITOR.config.allowedContent = true;
+</script>
 @endpush

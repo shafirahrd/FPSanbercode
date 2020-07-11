@@ -168,7 +168,7 @@ a.commentb-add-button{
               <form action="/question/comment/{{$question->id}}" method="POST">
                 @csrf
                 <div class="mb-3">
-                  <textarea name="content" class="textarea" placeholder="Type your comment here"></textarea>
+                  <textarea id="comment-ta" name="content" class="textarea" placeholder="Type your comment here"></textarea>
                 </div>
                 <div class="offset-2 col-8">
                   <button  class="btn btn-warning col-12 margin-custom">Add Comment</button>
@@ -251,7 +251,7 @@ a.commentb-add-button{
                     <form action="/answer/comment/{{$question->best_answer->id}}" method="POST">
                       @csrf
                       <div class="mb-3">
-                        <textarea name="content" class="textarea" placeholder="Type your answer comment here"></textarea>
+                        <textarea id="bcomment-ta" name="content" class="textarea" placeholder="Type your answer comment here"></textarea>
                       </div>
                       <div class="offset-2 col-8">
                         <button  class="btn btn-warning col-12 margin-custom">Add Comment</button>
@@ -340,7 +340,7 @@ a.commentb-add-button{
                     <form action="/answer/comment/{{$answer->id}}" method="POST">
                       @csrf
                       <div class="mb-3">
-                        <textarea name="content" class="textarea" placeholder="Type your answer comment here"></textarea>
+                        <textarea id="acomment-ta" name="content" class="textarea" placeholder="Type your answer comment here"></textarea>
                       </div>
                       <div class="offset-2 col-8">
                         <button  class="btn btn-warning col-12 margin-custom">Add Comment</button>
@@ -383,7 +383,7 @@ a.commentb-add-button{
             <form action="/answer/{{$question->id}}" method="POST">
               @csrf
               <div class="mb-3">
-                <textarea name="content" class="textarea" placeholder="Type your answer here"></textarea>
+                <textarea id="answer-ta" name="content" class="textarea" placeholder="Type your answer here"></textarea>
               </div>
               <div class="offset-2 col-8">
                 <button  class="btn btn-warning col-12 margin-custom">Add Answer</button>
@@ -404,4 +404,9 @@ a.commentb-add-button{
 @push('scripts')
     <script src="{{asset('\comment.js')}}"></script>
     <script src="{{asset('\vote.js')}}"></script>
+<script src="{{asset('ckeditor/ckeditor/ckeditor.js')}}"></script>
+<script>
+  CKEDITOR.replace( 'answer-ta' );
+  CKEDITOR.config.allowedContent = true;
+</script>
 @endpush
