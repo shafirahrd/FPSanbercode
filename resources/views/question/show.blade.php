@@ -35,7 +35,7 @@ span.comment-span.hide{
   display: none;
 }
 span.comment-span.comment{
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 button.margin-zero {
   margin: 0;
@@ -83,6 +83,9 @@ div.card-header.answer,
 div.card-header.comment-content{
   border: none;
 }
+div.card-footer{
+  margin-bottom: 40px;
+}
 a.comment-add-button{
   position: absolute;
   right:50px;
@@ -97,9 +100,16 @@ a.commenta-add-button{
   font-weight: bold;
   color: #008b8b;
 }
+a.commentb-add-button{
+  position:absolute;
+  right:50px;
+  top: 240px;
+  font-weight: bold;
+  color: #008b8b;
+}
 .comment-span{
   display:block;
-  margin: 10px 20px 0;
+  margin: -30px 20px 0;
   cursor: pointer;
 }
 .comment-span:hover{
@@ -132,9 +142,14 @@ a.commenta-add-button{
         </div>
       @endif
       by <a href="/user/{{$question->uploader->id}}">  {{$question->uploader->name}}</a><hr>
-      <span class="margin-right icon"><i class="fa fa-thumbs-up" style="color: #FFAE42;" aria-hidden="true"></i></span>
-      <span class="margin-right icon"><i class="fa fa-thumbs-down" style="color: #FFAE42;" aria-hidden="true"></i></span>
-      <span class="margin-right custom"><i class="fa fa-vote-yea" style="color: #FFAE42;" aria-hidden="true"> {{App\Question::count_votes($question->id)}}</i></span>
+      <span class="margin-right icon">
+        <i data-token="{{ csrf_token() }}" onclick="questionVote({{$question->id}},1)" class="fa fa-thumbs-up" style="color: #FFAE42;" aria-hidden="true"></i>
+      </span>
+      <span class="margin-right icon">
+        <i data-token="{{ csrf_token() }}" onclick="questionVote({{$question->id}},-1)" class="fa fa-thumbs-down" style="color: #FFAE42;" aria-hidden="true"></i>
+      </span>
+      <span class="margin-right custom">
+        <i id="qv{{$question->id}}" class="fa fa-vote-yea" style="color: #FFAE42;" aria-hidden="true"> {{App\Question::count_votes($question->id)}}</i></span>
       <span class="medium auto">
         created: {{$question->created_at}}, last updated: {{$question->updated_at}}
       </span>  
@@ -175,92 +190,187 @@ a.commenta-add-button{
       <div class="card">
         <div class="card-body">
       @foreach ($question->comments as $comments)
-          <p>{{$comments->content}} - <a href="/user/{{$comments->uploader->id}}"> {{$comments->uploader->name}}, at</a>
-          <span class="small auto">{{$comments->created_at}}</span></p><hr>
+          <p>{{$comments->content}} - <a href="/user/{{$comments->uploader->id}}"> {{$comments->uploader->name}}</a>
+          <span class="small auto">at {{$comments->created_at}}</span></p><hr>
       @endforeach
         </div>
       </div>
     </div>
     @endif
-
 </div>
   <!-- /.card-header -->
   <div class="card-header answer">
     <h3>Answers</h3>
   </div>
+  @if ($question->best_answer)
   <div class="card-body answer">
-    @foreach ($question->answers as $answer)
-        <div class="card">
-            <div class="card-body">
-            <p>{{$answer->content}}</p>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-            @if(Session::has('id') && (Session::get('id')==$answer->uploader->id))
-            <div class="answer-button">
-                <a class="col-3" href="/answer/{{$answer->id}}/edit">
-                <button class="btn btn-success col-6 margin-zero">Edit</button>
-                </a>
-                <form class="col-3" action="/answer/{{$answer->id}}" method="post">
-                @method('delete')
-                @csrf
-                <input class="btn btn-danger col-6" type="submit" value="Delete" />
-                </form>
-            </div>
-            @endif
-            by <a href="/user/{{$answer->uploader->id}}"> {{$answer->uploader->name}}</a><hr>
-            <span class="margin-right icon"><i class="fa fa-thumbs-up" style="color: #FFAE42;" aria-hidden="true"></i></span>
-            <span class="margin-right icon"><i class="fa fa-thumbs-down" style="color: #FFAE42;" aria-hidden="true"></i></span>
-            <span class="margin-right custom"><i class="fa fa-vote-yea" style="color: #FFAE42;" aria-hidden="true"> {{App\Answer::count_votes($answer->id)}}</i></span>
-            <span class="small auto">
-                created: {{$answer->created_at}}, last updated: {{$answer->updated_at}}
-            </span>
-            </div>
-            <!-- /.card-footer-->
-            @if (Session::has('id'))
-                <div class="modal fade" id="staticBackdropAns" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Comment</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <form action="/answer/comment/{{$answer->id}}" method="POST">
-                          @csrf
-                          <div class="mb-3">
-                            <textarea name="content" class="textarea" placeholder="Type your answer comment here"></textarea>
-                          </div>
-                          <div class="offset-2 col-8">
-                            <button  class="btn btn-warning col-12 margin-custom">Add Comment</button>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
+      <div class="card">
+        <h5 class="btn btn-primary" style="cursor: none">Best answer</h5>
+        <div class="card-body">
+        <p>{{$question->best_answer->content}}</p>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+        @if(Session::has('id') && (Session::get('id')==$question->best_answer->uploader->id))
+        <div class="answer-button">
+            <a class="col-3" href="/answer/{{$question->best_answer->id}}/edit">
+            <button class="btn btn-success col-6 margin-zero">Edit</button>
+            </a>
+            <form class="col-3" action="/answer/{{$question->best_answer->id}}" method="post">
+            @method('delete')
+            @csrf
+            <input class="btn btn-danger col-6" type="submit" value="Delete" />
+            </form>
+        </div>
+        @endif
+        by <a href="/user/{{$question->best_answer->uploader->id}}"> {{$question->best_answer->uploader->name}}</a><hr>
+        <span class="margin-right icon">
+          <i data-token="{{ csrf_token() }}" onclick="answerVote({{$question->best_answer->id}},1)" class="fa fa-thumbs-up" style="color: #FFAE42;" aria-hidden="true"></i>
+        </span>
+        <span class="margin-right icon">
+          <i data-token="{{ csrf_token() }}" onclick="answerVote({{$question->best_answer->id}},-1)" class="fa fa-thumbs-down" style="color: #FFAE42;" aria-hidden="true"></i>
+        </span>
+        <span class="margin-right custom">
+          <i id="av{{$question->best_answer->id}}" class="fa fa-vote-yea" style="color: #FFAE42;" aria-hidden="true"> {{App\Answer::count_votes($question->best_answer->id)}}</i></span>
+        <span class="small auto">
+            created: {{$question->best_answer->created_at}}, last updated: {{$question->best_answer->updated_at}}
+        </span>
+        </div>
+        <!-- /.card-footer-->
+        @if (Session::has('id'))
+            <div class="modal fade" id="staticBackdropAns" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Comment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
                   </div>
-                </div>
-                <a href="#" class="commenta-add-button" data-toggle="modal" data-target="#staticBackdropAns">Add Comment</a>
-              @endif
-              @if (count($answer->comments)>0)
-              <span class="comment-span comment">show comments({{count($answer->comments)}})</span>
-              <span class="comment-span hide">hide comments</span>
-              <div class="card-header comment-content">
-                <div class="card">
-                  <div class="card-body">
-                @foreach ($answer->comments as $comments)
-                    <p>{{$comments->content}} - <a href="/user/{{$comments->uploader->id}}"> {{$comments->uploader->name}}</a>
-                    <span class="small auto">{{$comments->created_at}}</span></p><hr>
-                @endforeach
+                  <div class="modal-body">
+                    <form action="/answer/comment/{{$question->best_answer->id}}" method="POST">
+                      @csrf
+                      <div class="mb-3">
+                        <textarea name="content" class="textarea" placeholder="Type your answer comment here"></textarea>
+                      </div>
+                      <div class="offset-2 col-8">
+                        <button  class="btn btn-warning col-12 margin-custom">Add Comment</button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </div>
               </div>
-              @endif
+            </div>
+            <a href="#" class="commentb-add-button" data-toggle="modal" data-target="#staticBackdropAns">Add Comment</a>
+          @endif
+          @if (count($question->best_answer->comments)>0)
+          <span class="comment-span comment">show comments({{count($question->best_answer->comments)}})</span>
+          <span class="comment-span hide">hide comments</span>
+          <div class="card-header comment-content">
+            <div class="card">
+              <div class="card-body">
+            @foreach ($question->best_answer->comments as $comments)
+                <p>{{$comments->content}} - <a href="/user/{{$comments->uploader->id}}"> {{$comments->uploader->name}}</a>
+                <span class="small auto">{{$comments->created_at}}</span></p><hr>
+            @endforeach
+              </div>
+            </div>
+          </div>
+          @endif
+      </div>
+  </div>
+  @endif
+  <div class="card-body answer">
+    @foreach ($question->answers as $answer)
+      @if ((!($question->best_answer))||($answer->id != $question->best_answer->id))
+      <div class="card">
+        <div class="card-body">
+        <p>{{$answer->content}}</p>
         </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+        @if(Session::has('id') && (Session::get('id')==$answer->uploader->id))
+        <div class="answer-button d-flex justify-content-center">
+            <a class="" href="/answer/{{$answer->id}}/edit">
+              <button class="btn btn-success margin-zero" style="width: 100px">Edit</button>
+            </a>
+            <form class="col-3" action="/answer/{{$answer->id}}" method="post">
+              @method('delete')
+              @csrf
+              <input class="btn btn-danger col-6" type="submit" value="Delete" />
+            </form>
+        @endif
+        @if(Session::has('id') && (Session::get('id')==$question->uploader->id) && (!($question->best_answer)))
+            <form class="col-6" action="/question/{{$question->id}}/bestanswer/{{$answer->id}}" method="post">
+              @csrf
+              <input class="btn btn-danger col-12" type="submit" value="Set best answer" />
+            </form>
+        @endif
+        @if(Session::has('id') && (Session::get('id')==$answer->uploader->id))
+        </div>
+        @endif
+        by <a href="/user/{{$answer->uploader->id}}"> {{$answer->uploader->name}}</a><hr>
+        <span class="margin-right icon">
+          <i data-token="{{ csrf_token() }}" onclick="answerVote({{$answer->id}},1)" class="fa fa-thumbs-up" style="color: #FFAE42;" aria-hidden="true"></i>
+        </span>
+        <span class="margin-right icon">
+          <i data-token="{{ csrf_token() }}" onclick="answerVote({{$answer->id}},-1)" class="fa fa-thumbs-down" style="color: #FFAE42;" aria-hidden="true"></i>
+        </span>
+        <span class="margin-right custom">
+          <i id="av{{$question->best_answer->id}}" class="fa fa-vote-yea" style="color: #FFAE42;" aria-hidden="true"> {{App\Answer::count_votes($answer->id)}}</i></span>
+        <span class="small auto">
+            created: {{$answer->created_at}}, last updated: {{$answer->updated_at}}
+        </span>
+        </div>
+        <!-- /.card-footer-->
+        @if (Session::has('id'))
+            <div class="modal fade" id="staticBackdropAns" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Comment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="/answer/comment/{{$answer->id}}" method="POST">
+                      @csrf
+                      <div class="mb-3">
+                        <textarea name="content" class="textarea" placeholder="Type your answer comment here"></textarea>
+                      </div>
+                      <div class="offset-2 col-8">
+                        <button  class="btn btn-warning col-12 margin-custom">Add Comment</button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a href="#" class="commenta-add-button" data-toggle="modal" data-target="#staticBackdropAns">Add Comment</a>
+          @endif
+          @if (count($answer->comments)>0)
+          <span class="comment-span comment">show comments({{count($answer->comments)}})</span>
+          <span class="comment-span hide">hide comments</span>
+          <div class="card-header comment-content">
+            <div class="card">
+              <div class="card-body">
+            @foreach ($answer->comments as $comments)
+                <p>{{$comments->content}} - <a href="/user/{{$comments->uploader->id}}"> {{$comments->uploader->name}}</a>
+                <span class="small auto">{{$comments->created_at}}</span></p><hr>
+            @endforeach
+              </div>
+            </div>
+          </div>
+          @endif
+      </div>
+      @endif
     @endforeach     
       <div class="card card-outline card-warning">
         @if (Session::has('name'))
@@ -293,4 +403,5 @@ a.commenta-add-button{
 
 @push('scripts')
     <script src="{{asset('\comment.js')}}"></script>
+    <script src="{{asset('\vote.js')}}"></script>
 @endpush

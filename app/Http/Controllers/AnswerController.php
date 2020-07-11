@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -90,5 +91,33 @@ class AnswerController extends Controller
             }
         }
         return redirect('question');
+    }
+    
+    public function vote(Request $request){
+        if (Session::has('id')) {
+            $user = User::find(Session::get('id'));
+            $question = Answer::find($request->id);
+            if($request->value == -1){
+                if ($user->reputation >= 15){
+                    $clear = Answer::vote($user->id, $request->id, $request->value);
+                    if(!($clear)){
+                        User::add_reputation($question->uploader->id, -1);
+                        $finalVote = Answer::count_votes($request->id);
+                        return response()->json(array('msg'=> 'vote recorded', 'value'=>$finalVote));
+                    }else
+                        return response()->json(array('msg'=> 'you voted this', 'value'=>null));
+                }else
+                    return response()->json(array('msg'=> 'minimum requirement to downvote is 15 reputation', 'value'=>null));
+            }else{
+                $clear = Answer::vote($user->id, $request->id, $request->value);
+                if(!($clear)){
+                    User::add_reputation($question->uploader->id, 10);
+                    $finalVote = Answer::count_votes($request->id);
+                    return response()->json(array('msg'=> 'vote recorded', 'value'=>$finalVote));
+                }else
+                    return response()->json(array('msg'=> 'you voted this', 'value'=>null));
+            }
+        } else
+            return response()->json(array('msg'=> null, 'value'=>null));
     }
 }

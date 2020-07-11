@@ -52,10 +52,16 @@ class Answer extends Model
      */
     public static function vote($userid, $answerid, $value)
     {
+        $test = AnswerVote::where('voter_id', $userid)
+            ->where('answer_id', $answerid)
+            ->where('value', $value)
+            ->get();
+        if(count($test)>0)
+            return true;
         $record = AnswerVote::where('voter_id', $userid)
             ->where('answer_id', $answerid)
             ->get();
-        if ($record) {
+        if (count($record)>0) {
             $record[0]->update([
                 'value' => $value
             ]);

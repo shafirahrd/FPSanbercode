@@ -43,6 +43,12 @@ h6 {
   margin: 4px 2px;
   border-radius: 50%;
 }
+i.vote{
+  cursor:pointer;
+}
+i.vote:hover{
+  border: 0 0 2px 3px blue;
+}
 @endpush
 
 @section('content')
@@ -68,10 +74,10 @@ h6 {
       <div class="card-footer">
         by <a href="/user/{{$question->uploader->id}}"><h6>{{$question->uploader->name}}</h6></a><hr>
         <span class="margin-right">
-          <i data-token="{{ csrf_token() }}" onclick="questionVote({{$question->id}},1)" class="fa fa-thumbs-up" aria-hidden="true"></i>
+          <i data-token="{{ csrf_token() }}" onclick="questionVote({{$question->id}},1)" class="vote fa fa-thumbs-up" aria-hidden="true"></i>
         </span>
         <span class="margin-right">
-          <i data-token="{{ csrf_token() }}" onclick="questionVote({{$question->id}},-1)" class="fa fa-thumbs-down" aria-hidden="true">
+          <i data-token="{{ csrf_token() }}" onclick="questionVote({{$question->id}},-1)" class="vote fa fa-thumbs-down" aria-hidden="true">
           </i></span>
         <span class="margin-right"><i class="fa fa-vote-yea" aria-hidden="true" id="qv{{$question->id}}"> {{App\Question::count_votes($question->id)}}</i></span>
         <span class="float-right">Created at {{$question->created_at}}</span>

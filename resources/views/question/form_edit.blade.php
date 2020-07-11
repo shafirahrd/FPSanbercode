@@ -30,6 +30,7 @@
                     <button type="submit" class="btn btn-warning col-12" style="color: #008b8b; font-weight: bold;">UPDATE</button>
                 </div>
             </div>
+            @method('put')
         </form>
     </div>
 

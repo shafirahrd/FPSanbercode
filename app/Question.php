@@ -16,14 +16,14 @@ class Question extends Model
     use SoftDeletes;
 
     public static function get_newest(){
-        return Question::select('*')->orderBy('created_at')->get();
+        return Question::select('*')->orderBy('created_at', 'desc')->get();
     }
     public static function get_top_voted(){
         $questions = Question::all();
         foreach ($questions as $question) {
             $question->votes = Question::count_votes($question->id);
         }
-        return $questions->sortBy('votes');
+        return $questions->sortBy('votes', SORT_REGULAR,true);
     }
     /**
      * Function to add new question
@@ -56,6 +56,12 @@ class Question extends Model
      */
     public static function vote($userid, $questionid, $value)
     {
+        $test = QuestionVote::where('voter_id', $userid)
+            ->where('question_id', $questionid)
+            ->where('value', $value)
+            ->get();
+        if(count($test)>0)
+            return true;
         $record = QuestionVote::where('voter_id', $userid)
             ->where('question_id', $questionid)
             ->get();
@@ -80,7 +86,7 @@ class Question extends Model
      */
     public static function count_votes($id)
     {
-        $question = Question::where('id', $id)->get()[0];
+        $question = Question::find($id);
         $votes = 0;
         foreach ($question->votes as $vote) {
             $votes += $vote->value;

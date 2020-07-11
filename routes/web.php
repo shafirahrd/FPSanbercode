@@ -26,11 +26,13 @@ Route::post('comment/{id}', 'QuestionCommentController@store');
 Route::post('question/comment/{id}', 'QuestionCommentController@store');
 Route::post('answer/comment/{id}', 'AnswerCommentController@store');
 Route::post('/question/vote', 'QuestionController@vote');
-Route::post('answer/vote/{id}', 'AnswerCommentController@store');
+Route::post('/answer/vote/store', 'AnswerController@vote');
 
 Route::get('/login', 'UserController@login');
 Route::post('/loginPost', 'UserController@loginPost');
 Route::get('/register', 'UserController@register');
 Route::get('/logout', 'UserController@logout');
 
-//Route::get('/test', function(){ return view('test'); });
+Route::post('/question/{question}/bestanswer/{answer}', 'QuestionController@bestAnswer');
+
+Route::get('/test', function(){ return view('test'); });
