@@ -29,6 +29,9 @@ h1 {
   font-weight: bold;
   color: #003e3f;
 }
+h6 {
+  display: inline;
+}
 .btn.btn-primary.col-12{
   border: none;
   color: white;
@@ -45,7 +48,7 @@ h1 {
 @section('content')
 <div class="card-header d-flex justify-content-between">
   <h1>Questions</h1>
-  <a href="/question/create"><button  class="btn btn-primary col-12"><i class="fas fa-plus"></i> Question</button></a>
+  <a href="/question/create"><button  class="btn btn-primary col-12"><i class="fas fa-plus"></i> ASK !</button></a>
 </div>
 <!-- /.card-header -->
 <div class="card-body">
@@ -53,7 +56,6 @@ h1 {
     <div class="card card-outline card-warning" id="question-id">
       <div class="card-header">
         <a href="/question/{{$question->id}}"><h4>{{$question->title}}</h4></a>
-        <a href="/user/{{$question->uploader->id}}"><h6>{{$question->uploader->name}}</h6></a>
 
         @foreach (explode(",",$question->tags) as $tag)
           <a href="#" class="btn btn-xs btn-warning">{{$tag}}</a>
@@ -64,9 +66,10 @@ h1 {
       </div>
       <!-- /.card-body -->
       <div class="card-footer">
+        by <a href="/user/{{$question->uploader->id}}"><h6>{{$question->uploader->name}}</h6></a><hr>
         <span class="margin-right"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
         <span class="margin-right"><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
-        <span class="margin-right">{{App\Question::count_votes($question->id)}}</span>
+        <span class="margin-right"><i class="fa fa-vote-yea" aria-hidden="true"> {{App\Question::count_votes($question->id)}}</i></span>
         <span class="float-right">Created at {{$question->created_at}}</span>
       </div>
       <!-- /.card-footer-->

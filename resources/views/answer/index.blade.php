@@ -36,12 +36,20 @@ textarea {
 .justify-content-around {
   margin-top: 15px;
 }
+.btn.btn-xs.btn-warning {
+  margin-bottom: 10px;
+}
 @endpush
 
 @section('content')
 <div class="card-header">
     <h2>Title</h2>
     <h4><pre>Content</pre></h4>
+    <a href="/" class="btn btn-xs btn-warning">Tag1</a>
+    <a href="/" class="btn btn-xs btn-warning">Tag2</a>
+    <a href="/" class="btn btn-xs btn-warning">Tag3</a>
+    <a href="/" class="btn btn-xs btn-warning">Tag4</a>
+    <a href="/" class="btn btn-xs btn-warning">Tag5</a>
     <div class="card-footer d-flex justify-content-between">
       <span class="medium">anonymous</span>
       <span class="medium auto">
@@ -50,7 +58,7 @@ textarea {
     </div>
     <div class="container d-flex justify-content-around">
       <a class="col-3" href="/question/id/edit">
-        <button class="btn btn-warning col-6 margin-zero">Edit</button>
+        <button class="btn btn-success col-6 margin-zero">Edit</button>
       </a>
       <form class="col-3" action="/question/id/delete" method="post">
         @method('delete')

@@ -6,7 +6,7 @@
 @section('content')
 
     <div class="container-fluid d-flex justify-content-center flex-column" >
-        <h2 class="text-center">Edit your question here</h2>
+        <h2 class="text-center" style="margin-top:30px; margin-bottom:15px; font-weight: bold; color: #003e3f;">Edit your question here</h2>
         <form action="/question/{{$question->id}}" method="POST" class="col-6  align-self-center">
             @csrf
             <div class="form-group row ">
