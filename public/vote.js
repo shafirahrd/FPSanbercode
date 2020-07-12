@@ -20,6 +20,14 @@ function questionVote(id, value) {
 }
 
 function answerVote(id, value) {
+    Swal.fire({
+        title: 'Please wait',
+        html: 'This takes few seconds',
+        timerProgressBar: true,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        }
+    });
     $.ajax({
         type: "post",
         url: "/answer/vote/store",
@@ -32,9 +40,22 @@ function answerVote(id, value) {
             if (!(response['msg'])) {
                 window.location.replace("/login");
             } else {
-                alert(response['msg']);
-                if (response['value'])
+                if (response['value']) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: response['msg'],
+                        icon: 'success',
+                        confirmButtonText: 'ok'
+                    })
                     $('i.fa-vote-yea#av' + id).html(response['value']);
+                } else {
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: response['msg'],
+                        icon: 'warning',
+                        confirmButtonText: 'ok'
+                    })
+                }
             }
         }
     });

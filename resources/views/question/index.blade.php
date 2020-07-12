@@ -90,5 +90,6 @@ i.vote:hover{
 @endsection
 
 @push('scripts')
+  <script src="{{asset('\swal.min.js')}}"></script>
   <script src="{{asset('vote.js')}}"></script>
 @endpush

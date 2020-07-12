@@ -402,6 +402,7 @@ a.commentb-add-button{
 @endsection
 
 @push('scripts')
+    <script src="{{asset('\swal.min.js')}}"></script>
     <script src="{{asset('\comment.js')}}"></script>
     <script src="{{asset('\vote.js')}}"></script>
 <script src="{{asset('ckeditor/ckeditor/ckeditor.js')}}"></script>
