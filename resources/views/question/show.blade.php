@@ -320,7 +320,7 @@ a.commentb-add-button{
           <i data-token="{{ csrf_token() }}" onclick="answerVote({{$answer->id}},-1)" class="fa fa-thumbs-down" style="color: #FFAE42;" aria-hidden="true"></i>
         </span>
         <span class="margin-right custom">
-          <i id="av{{$question->best_answer->id}}" class="fa fa-vote-yea" style="color: #FFAE42;" aria-hidden="true"> {{App\Answer::count_votes($answer->id)}}</i></span>
+          <i id="av{{$answer->id}}" class="fa fa-vote-yea" style="color: #FFAE42;" aria-hidden="true"> {{App\Answer::count_votes($answer->id)}}</i></span>
         <span class="small auto">
             created: {{$answer->created_at}}, last updated: {{$answer->updated_at}}
         </span>
