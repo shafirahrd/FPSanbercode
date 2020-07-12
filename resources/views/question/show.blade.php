@@ -96,7 +96,7 @@ a.comment-add-button{
 a.commenta-add-button{
   position:absolute;
   right:50px;
-  top: 200px;
+  top: 185px;
   font-weight: bold;
   color: #008b8b;
 }
@@ -124,7 +124,7 @@ a.commentb-add-button{
 @section('content')
 <div class="card-header">
     <h2>{{$question->title}}</h2>
-    <p>{{$question->content}}</p>
+    <p><?php echo ($question->content) ?></p>
     @foreach (explode(",",$question->tags) as $tag)
       <a href="#" class="btn btn-xs btn-warning">{{$tag}}</a>
     @endforeach
@@ -207,7 +207,7 @@ a.commentb-add-button{
       <div class="card">
         <h5 class="btn btn-primary" style="cursor: none">Best answer</h5>
         <div class="card-body">
-        <p>{{$question->best_answer->content}}</p>
+        <p><?php echo ($question->best_answer->content) ?></p>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -288,7 +288,7 @@ a.commentb-add-button{
       @if ((!($question->best_answer))||($answer->id != $question->best_answer->id))
       <div class="card">
         <div class="card-body">
-        <p>{{$answer->content}}</p>
+        <?php echo ($answer->content) ?>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">

@@ -68,7 +68,7 @@ i.vote:hover{
         @endforeach
       </div>
       <div class="card-body">
-        {{$question->content}}
+        <?php echo ($question->content) ?>
       </div>
       <!-- /.card-body -->
       <div class="card-footer">
